@@ -1,11 +1,8 @@
 import { Formik } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/actions';
+import PropTypes from 'prop-types';
 import { Button, Form, Input, Label } from './ContactForm.styled';
 
-export const ContactForm = () => {
-  const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts);
+export const ContactForm = ({ contacts, onSubmit }) => {
   return (
     <Formik
       initialValues={{
@@ -16,8 +13,7 @@ export const ContactForm = () => {
         if (contacts.find(contact => contact.name === name)) {
           return alert(`${name} is already in contacts`);
         }
-
-        dispatch(addContact({ name, number }));
+        onSubmit({ name, number });
         actions.resetForm();
       }}
     >
@@ -48,4 +44,15 @@ export const ContactForm = () => {
       </Form>
     </Formik>
   );
+};
+
+ContactForm.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      number: PropTypes.string,
+    })
+  ),
+  onSubmit: PropTypes.func,
 };
