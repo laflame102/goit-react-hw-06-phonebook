@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from 'redux/contactsSlice';
 import { addContact, deleteContact } from 'redux/contactsSlice';
 import { filterContacts, getFilter } from 'redux/filterSlice';
+import { Container } from './App.styled';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ export const App = () => {
   };
 
   return (
-    <div>
+    <Container>
       <h1>Phonebook</h1>
       <ContactForm onSubmit={addPhone} contacts={contacts} />
 
@@ -41,6 +42,6 @@ export const App = () => {
         contacts={getSearchingContacts()}
         onDeleteContact={deletePhone}
       />
-    </div>
+    </Container>
   );
 };
